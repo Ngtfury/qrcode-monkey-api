@@ -138,9 +138,9 @@ class QrCode:
             'https://api.qrcode-monkey.com/qr/custom',
             json = json
         )
-        
+
         if self.download:
-            _url = req.json()['ImageUrl']
+            _url = req.json()['imageUrl']
             return _url
 
         return req.content
