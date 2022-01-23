@@ -26,6 +26,10 @@ class QrCodeImage:
 
 
 class QrCode:
+
+    class QrMonkeyError(Exception):
+        pass
+
     def __init__(
         self,
         data: str,
@@ -160,6 +164,12 @@ class QrCode:
             'https://api.qrcode-monkey.com/qr/custom',
             json = json
         )
+        if not req.status_code == 200:
+            _json = req.json()
+            _err_code = _json['errorCode']
+            _err_message = _json['errorMessage']
+            raise QrCode.QrMonkeyError(f'({_err_code}) {_err_message}')
+
         if self.download:
             _url = req.json()['imageUrl']
             return QrCodeImage(_url)
