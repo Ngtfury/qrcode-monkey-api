@@ -3,6 +3,28 @@ import typing
 from typing import Literal, Optional
 
 
+class Asset:
+    BASE = 'https:'
+
+    def __init__(self, url):
+        self._url = f'{self.BASE}{url}'
+
+    def __str__(self) -> str:
+        return self._url
+        
+    def __repr__(self):
+        shorten = self._url.replace(self.BASE, '')
+        return f'<Asset url={shorten!r}>'
+
+    def __hash__(self):
+        return hash(self._url)
+
+
+    @property
+    def url(self):
+        return self._url
+
+
 class QrCode:
     def __init__(
         self,
@@ -138,9 +160,8 @@ class QrCode:
             'https://api.qrcode-monkey.com/qr/custom',
             json = json
         )
-
         if self.download:
             _url = req.json()['imageUrl']
-            return _url
+            return Asset(_url)
 
         return req.content
