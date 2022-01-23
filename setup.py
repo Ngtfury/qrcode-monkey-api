@@ -9,15 +9,12 @@ version = ''
 with open('qr_monkey/__init__.py') as f:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
-if not version:
-    raise RuntimeError('version is not set')
 
-readme = ''
-with open('README.md') as f:
-    readme = f.read()
+with open("README.md", "r", encoding="utf-8") as f:
+    README = f.read()
 
 packages = [
-    'regular.py'
+    'qr_monkey'
 ]
 
 setup(
@@ -28,7 +25,7 @@ setup(
     packages=packages,
     license='MIT',
     description='A Python wrapper for the Qr code monkey API',
-    long_description=readme,
+    long_description=README,
     long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=requirements,
